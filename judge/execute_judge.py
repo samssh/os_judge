@@ -69,6 +69,15 @@ def run_judge(submission_id):
     submission.total_tests = settings.TEST_COUNT
     if performed_tests < settings.TEST_COUNT:
         submission.state = 'failed to run all tests'
-
     submission.save()
+    subprocess.run(
+        args=['docker-compose', 'rm', ],
+        cwd=directory,
+        capture_output=True,
+    )
+    subprocess.run(
+        args=['docker-compose', 'down', ],
+        cwd=directory,
+        capture_output=True,
+    )
     shutil.rmtree(directory)
