@@ -71,7 +71,7 @@ def run_judge(submission_id):
         submission.state = 'failed to run all tests'
     submission.save()
     subprocess.run(
-        args=['docker-compose', 'rm', ],
+        args=['docker-compose', 'rm', '-f'],
         cwd=directory,
         capture_output=True,
     )
