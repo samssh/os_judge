@@ -48,6 +48,7 @@ def run_judge(submission_id):
     submission.judged_at = timezone.now()
     submission.log_tests = ''
     performed_tests = 0
+    submission.passed_tests = 0
     for filename in os.listdir(os.path.join(directory, 'report')):
         file_path = os.path.join(directory, 'report', filename)
         if os.path.isfile(file_path) and filename.endswith('.txt'):
@@ -59,12 +60,12 @@ def run_judge(submission_id):
             submission.log_tests += file_result
             results = re.findall(
                 pattern=r'Tests run: (\d*), Failures: (\d*), Errors: (\d*), Skipped: (\d*)',
-                string=submission.output_log,
+                string=file_result,
             )
             if len(results) > 0:
                 performed_tests += 1
                 result = results[0]
-                submission.passed_tests = int(result[0]) - int(result[1]) - int(result[2]) - int(result[3])
+                submission.passed_tests += int(result[0]) - int(result[1]) - int(result[2]) - int(result[3])
     submission.total_tests = settings.TEST_COUNT
     if performed_tests < settings.TEST_COUNT:
         submission.state = 'failed to run all tests'
