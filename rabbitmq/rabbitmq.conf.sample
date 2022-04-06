@@ -1,0 +1,7 @@
+loopback_users.guest = false
+listeners.tcp.default = $rabbit_port
+default_user = $rabbit_user
+default_pass = $rabbit_password
+hipe_compile = false
+management.listener.port = $rabbit_port_management
+management.listener.ssl = false

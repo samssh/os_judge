@@ -1,0 +1,14 @@
+version: "3"
+services:
+  java-test:
+    image: java-test-runner
+    networks:
+      - no-internet
+    volumes:
+      - "./data:/software/src/main/java"
+      - "./report:/software/target/surefire-reports"
+
+networks:
+  no-internet:
+    driver: bridge
+    internal: true

@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  server:
+    build: .
+    ports:
+      - "80:8000"
+    volumes:
+      - ./upload:/home/software/upload
+    environment:
+      - DB_NAME=$db_name
+      - DB_USER=$db_user
+      - DB_PASS=$db_password!
+      - DB_PORT=$db_port
+      - DB_HOST=db
+      - DJANGO_DEBUG=False
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=$rabbit_user
+      - RABBITMQ_PASSWORD=$rabbit_password
+      - RABBITMQ_PORT=$rabbit_port
+    depends_on:
+      - db
+      - rabbitmq
+  db:
+    image: postgres:14.2
+    environment:
+      POSTGRES_DB: $db_name
+      POSTGRES_USER: $db_user
+      POSTGRES_PASSWORD: $db_password
+    ports:
+      - "$db_port:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3.9.13-management
+    volumes:
+      - ./rabbitmq/:/etc/rabbitmq/
+      - rabbittmq-data:/var/lib/rabbitmq
+    ports:
+      - "$rabbit_port:5672"
+      - "$rabbit_port_management:15672"
+
+volumes:
+  postgres_data:
+    driver: local
+  rabbittmq-data:
+    driver: local

@@ -1,0 +1,19 @@
+.DS_Store
+.idea/
+media/*
+!media/PLACEHOLDER
+
+logs/*
+!logs/PLACEHOLDER
+
+
+# Django #
+*.log
+*.pot
+__pycache__
+db.sqlite3
+media
+workable_data
+scripts/db
+scripts/logs
+venv

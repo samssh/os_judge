@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: docker.repos.balad.ir/postgres
+    environment:
+      POSTGRES_DB: os_judge_db
+      POSTGRES_USER: os_judge_user
+      POSTGRES_PASSWORD: os_judge_password
+    ports:
+      - "5432:5432"
+  rabbitmq:
+    image: docker.repos.balad.ir/rabbitmq:3.9.13-management
+    volumes:
+      - ./rabbitmq/:/etc/rabbitmq/
+    ports:
+      - "5672:5672"
+      - "15672:15672"
