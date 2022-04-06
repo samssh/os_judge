@@ -27,8 +27,8 @@ def run_judge(submission_id):
     )
     if unzip_result.returncode != 0:
         submission.state = 'fail to unzip'
-        submission.error_log = unzip_result.stderr.decode('ascii')
-        submission.output_log = unzip_result.stdout.decode('ascii')
+        submission.error_log = unzip_result.stderr.decode('utf-8')
+        submission.output_log = unzip_result.stdout.decode('utf-8')
         submission.judged_at = timezone.now()
         submission.save()
         shutil.rmtree(directory)
@@ -43,8 +43,8 @@ def run_judge(submission_id):
         submission.state = 'judged'
     else:
         submission.state = 'fail to judge'
-    submission.error_log = judge_result.stderr.decode('ascii')
-    submission.output_log = judge_result.stdout.decode('ascii')
+    submission.error_log = judge_result.stderr.decode('utf-8')
+    submission.output_log = judge_result.stdout.decode('utf-8')
     submission.judged_at = timezone.now()
     submission.log_tests = ''
     performed_tests = 0
