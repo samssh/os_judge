@@ -10,4 +10,4 @@ export RABBITMQ_HOST=localhost
 export RABBITMQ_USER=$rabbit_user
 export RABBITMQ_PASSWORD=$rabbit_password
 export RABBITMQ_PORT=$rabbit_port
-celery -A os_judge worker -l info
+celery -A os_judge worker -l info --without-gossip --without-mingle --without-heartbeat

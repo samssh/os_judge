@@ -100,22 +100,4 @@ LOGIN_URL = '/users/login/'
 LOGOUT_REDIRECT_URL = '/users/login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RABBITMQ_CELERY_URL = "amqp://{user_name}:{password}@{host}:{port}/{vhost}".format(
-    host=os.getenv('RABBITMQ_HOST', 'localhost'),
-    port=os.getenv('RABBITMQ_PORT', '5672'),
-    user_name=os.getenv('RABBITMQ_USER', 'test_user'),
-    password=os.getenv('RABBITMQ_PASSWORD', 'test_password'),
-    vhost=os.getenv('RABBITMQ_VHOST', '')
-)
-# Celery
-CELERY_BROKER_URL = RABBITMQ_CELERY_URL
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-
-CELERY_RESULT_BACKEND_ALWAYS_RETRY = True
-CELERY_RESULT_BACKEND = 'django-db'
-
-task_annotations = {'*': {'rate_limit': '5/m'}}
-
 TEST_COUNT = 8
