@@ -13,6 +13,7 @@ def rejudge(modeladmin, request, queryset):
 class SubmissionAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     list_display = (
+        'sender',
         'state',
         'passed_tests',
         'total_tests',
