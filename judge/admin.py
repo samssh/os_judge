@@ -12,7 +12,15 @@ def rejudge(modeladmin, request, queryset):
 
 class SubmissionAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
-    list_filter = ('sender__username',)
+    list_display = (
+        'state',
+        'passed_tests',
+        'total_tests',
+        'master_grade',
+        'created_at',
+        'judged_at',
+    )
+    list_filter = ('sender__username', 'state')
     actions = [rejudge]
 
 
