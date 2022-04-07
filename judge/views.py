@@ -12,7 +12,7 @@ class UploadViewSet(viewsets.ReadOnlyModelViewSet, mixins.CreateModelMixin):
     queryset = Submission.objects.none()
 
     def get_queryset(self):
-        return Submission.objects.filter(sender=self.request.user).order_by('created_at')
+        return Submission.objects.filter(sender=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save()

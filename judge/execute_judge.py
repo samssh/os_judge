@@ -20,8 +20,11 @@ def run_judge(submission_id):
     os.mkdir(directory)
     os.mkdir(os.path.join(directory, 'data'))
     os.mkdir(os.path.join(directory, 'report'))
+    attachment_path = os.path.join(directory, 'attachment.zip')
+    with open(attachment_path, "wb") as attachment_file:
+        attachment_file.write(submission.attachment_content)
     unzip_result = subprocess.run(
-        args=['unzip', '-q', submission.attachment.path, '-d', 'data'],
+        args=['unzip', '-q', 'attachment.zip', '-d', 'data'],
         cwd=directory,
         capture_output=True,
     )

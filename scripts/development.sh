@@ -11,6 +11,8 @@ if [ "$1" = "new" ]; then
   docker-compose -f development-docker-compose.yml down --volumes --rmi local
 fi
 
+docker-compose -f development-docker-compose.yml up -d
+
 sleep 2
 
 if [ "$1" = "new" ]; then

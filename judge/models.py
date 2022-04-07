@@ -1,4 +1,3 @@
-import datetime
 import os
 import uuid
 
@@ -22,6 +21,7 @@ class Submission(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='submissions')
     state = models.CharField(default='pending', max_length=100)
     attachment = models.FileField(upload_to=get_uploaded_attachment_path)
+    attachment_content = models.BinaryField(editable=True)
     passed_tests = models.IntegerField(default=-1)
     total_tests = models.IntegerField(default=-1)
     master_grade = models.IntegerField(default=-1)
@@ -29,5 +29,8 @@ class Submission(models.Model):
     error_log = models.TextField(null=True, blank=True)
     log_tests = models.TextField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
     def __str__(self):
-        return '{} by {}'.format(self.sender.username, self.created_at)
+        return '{} at {}'.format(self.sender.username, self.created_at)

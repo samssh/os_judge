@@ -8,6 +8,17 @@ class JudgeSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
+    def validate_attachment(self, value):
+        if value.size > 500 * 1024:
+            raise serializers.ValidationError("file size in more than 500kb")
+        return value
+
+    def create(self, validated_data):
+        attachment = validated_data['attachment']
+        validated_data['attachment_content'] = attachment.read()
+        attachment.seek(0)
+        return super(JudgeSerializer, self).create(validated_data)
+
     class Meta:
         model = Submission
         fields = [
