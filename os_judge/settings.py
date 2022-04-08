@@ -100,6 +100,6 @@ LOGIN_URL = '/users/login/'
 LOGOUT_REDIRECT_URL = '/users/login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TEST_COUNT = 8
+TEST_COUNT = 12
 
 MAX_SUBMISSION_SIZE = 500 * 1024
