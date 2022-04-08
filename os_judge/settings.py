@@ -102,4 +102,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 TEST_COUNT = 12
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+
 MAX_SUBMISSION_SIZE = 500 * 1024
