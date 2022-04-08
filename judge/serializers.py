@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from judge.models import Submission
@@ -8,8 +9,9 @@ class JudgeSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault()
     )
 
-    def validate_attachment(self, value):
-        if value.size > 500 * 1024:
+    @staticmethod
+    def validate_attachment(value):
+        if value.size > settings.MAX_SUBMISSION_SIZE:
             raise serializers.ValidationError("file size in more than 500kb")
         return value
 
@@ -32,6 +34,7 @@ class JudgeSerializer(serializers.ModelSerializer):
             'total_tests',
             'master_grade',
             'log_tests',
+            'output_log',
         ]
         read_only_fields = [
             'id',
@@ -40,6 +43,7 @@ class JudgeSerializer(serializers.ModelSerializer):
             'state',
             'passed_tests',
             'total_tests',
-            'log_tests',
             'master_grade',
+            'log_tests',
+            'output_log',
         ]
