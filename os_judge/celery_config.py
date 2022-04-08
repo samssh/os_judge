@@ -16,6 +16,6 @@ task_serializer = 'json'
 result_backend_always_retry = True
 result_backend = 'django-db'
 
-task_annotations = {'*': {'rate_limit': '3/m'}}
+task_annotations = {'*': {'rate_limit': '10/m'}}
 
 worker_send_task_event = False
