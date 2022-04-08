@@ -19,5 +19,3 @@ result_backend = 'django-db'
 task_annotations = {'*': {'rate_limit': '20/m'}}
 
 worker_send_task_event = False
-task_time_limit = 140
-task_soft_time_limit = 120
