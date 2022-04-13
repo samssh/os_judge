@@ -48,6 +48,8 @@ def run_judge(submission_id):
         submission.state = 'fail to judge'
     submission.error_log = judge_result.stderr.decode('utf-8')
     submission.output_log = judge_result.stdout.decode('utf-8')
+    if len(submission.output_log) > settings.MAX_SUBMISSION_SIZE:
+        submission.output_log = submission.output_log[:settings.MAX_SUBMISSION_SIZE]
     submission.judged_at = timezone.now()
     submission.log_tests = ''
     performed_tests = 0
