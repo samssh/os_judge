@@ -30,8 +30,8 @@ def run_judge(submission_id):
     )
     if unzip_result.returncode != 0:
         submission.state = 'fail to unzip'
-        submission.error_log = unzip_result.stderr.decode('utf-8')
-        submission.output_log = unzip_result.stdout.decode('utf-8')
+        submission.error_log = unzip_result.stderr.decode("utf-8", errors="replace").replace("\x00", "\uFFFD")
+        submission.output_log = unzip_result.stdout.decode("utf-8", errors="replace").replace("\x00", "\uFFFD")
         submission.judged_at = timezone.now()
         submission.save()
         shutil.rmtree(directory)
@@ -46,8 +46,8 @@ def run_judge(submission_id):
         submission.state = 'judged'
     else:
         submission.state = 'fail to judge'
-    submission.error_log = judge_result.stderr.decode('utf-8')
-    submission.output_log = judge_result.stdout.decode('utf-8')
+    submission.error_log = judge_result.stderr.decode("utf-8", errors="replace").replace("\x00", "\uFFFD")
+    submission.output_log = judge_result.stdout.decode("utf-8", errors="replace").replace("\x00", "\uFFFD")
     if len(submission.output_log) > settings.MAX_SUBMISSION_SIZE:
         submission.output_log = submission.output_log[:settings.MAX_SUBMISSION_SIZE]
     submission.judged_at = timezone.now()
